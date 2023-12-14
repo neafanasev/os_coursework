@@ -10,7 +10,7 @@
 
 #include "wrapped_funcs.h"
 
-#define PORT 8878
+#define PORT 8889
 
 using namespace std;
 
@@ -81,7 +81,7 @@ int main() {
         } else if(command == "screen_resolution") {
             msg = screen_resolution();
         } else {
-            msg = "Invalid command, try shelp"; 
+            msg = "Invalid command"; 
         }
 
         send(fd, msg.c_str(), strlen(msg.c_str()), 0);

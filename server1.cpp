@@ -11,7 +11,7 @@
 
 #include "wrapped_funcs.h"
 
-#define PORT 8877
+#define PORT 8888
 
 using namespace std;
 
@@ -65,9 +65,9 @@ string parse_swapon(int command) {
     vector<string> strings = smart_split(line, ' ');
 
     if (command == 1) {
-        return replace(strings[4], ',', '.');
+        return strings[4];
     } else {
-        return replace(strings[5], ',', '.');
+        return strings[5];
     }
 }
 
@@ -88,7 +88,7 @@ float convert_to_bytes(string str) {
 
     int mul_factor = get_mul_factor(size_char);
 
-    float num = (float) mul_factor * stod(replace(str, size_char, ' '));
+    float num = (float) mul_factor * stod(str);
 
     return num;
 }
@@ -132,9 +132,9 @@ int main() {
 
         cout << endl << "Command received: " << command << endl;
 
-        if (command == "shelp") {
+        if (command == "server_help") {
             msg = "Server 1 commands:\n"
-            "shelp - get server commands (you're here)\n"
+            "server_help - get server commands\n"
             "swap_total - get total size of swap file \n"
             "swap_free - get aviable number of bytes of swap file"; 
         } else if (command == "swap_total") {
@@ -142,7 +142,7 @@ int main() {
         } else if (command == "swap_free") {
             msg = swap_free();
         } else {
-            msg = "Invalid command, try shelp"; 
+            msg = "Invalid command"; 
         }
 
         send(fd, msg.c_str(), strlen(msg.c_str()), 0);

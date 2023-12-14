@@ -1,0 +1,11 @@
+FROM gcc:latest
+
+COPY server2.cpp wrapped_funcs.h wrapped_funcs.cpp /usr/src/srv2/
+
+RUN mkdir -p /usr/src/srv2/bin
+
+WORKDIR /usr/src/srv2/
+
+RUN g++ server2.cpp wrapped_funcs.cpp -o server2
+
+CMD [ "./server2" ]

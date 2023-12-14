@@ -8,8 +8,8 @@
 
 #include "wrapped_funcs.h"
 
-#define PORT_1 8877
-#define PORT_2 8878
+#define PORT_1 8888
+#define PORT_2 8889
 
 using namespace std;
 
@@ -37,7 +37,7 @@ int main() {
                 cout << "Wrong server. Only 1 and 2 available" << endl;
             }
         } else {
-            cout << "Enter command (type 'help' for getting help)" << endl;
+            cout << "Enter command:" << endl;
             cin >> command;
 
             if (command == "exit") {
