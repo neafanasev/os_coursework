@@ -21,11 +21,11 @@ vector<string> smart_split(string str, char separator) {
 
     for (int i = 0; i <= str_len; i++) {
         
-        if (str[i] == separator|| i == str_len) {
+        if ((str[i] == separator && i < str_len && str[i+1] != separator) || i == str_len) {
             end_index = i;
             string temp;
             temp.append(str, start_index, end_index - start_index);
-            if (temp != " ") {
+            if (temp != " " && temp != "\t" && temp != "\n") {
                 strings.push_back(temp);
             }
             start_index = end_index + 1;
@@ -33,20 +33,6 @@ vector<string> smart_split(string str, char separator) {
     }
 
     return strings;
-}
-
-string replace(string str, char to_replace, char to_insert) {
-    string new_str;
-
-    for (int i = 0; i < str.size(); i++) {
-        if (str[i] == to_replace) {
-            new_str += to_insert;
-        } else {
-            new_str += str[i];
-        }
-    }
-
-    return new_str;
 }
 
 string parse_swapon(int command) {
@@ -64,11 +50,17 @@ string parse_swapon(int command) {
 
     vector<string> strings = smart_split(line, ' ');
 
+    string res;
     if (command == 1) {
-        return strings[4];
+        res = strings[2];
     } else {
-        return strings[5];
+        res = strings[3];
     }
+
+    std::string::iterator end_pos = std::remove(res.begin(), res.end(), ' ');
+    res.erase(end_pos, res.end());
+
+    return res;
 }
 
 int get_mul_factor(char size_char) {
